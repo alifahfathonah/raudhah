@@ -1,0 +1,115 @@
+NOTES:
+- PENGATURAN VIRTUAL ACCOUNT ADA DI STEPCONTROLLER (stepone) - sudah di set pada kolom pengaturan aplikasi
+
+TO DO:
+1. Tambahkan badge untuk delete pada modal daftar gedung. (DONE)
+2. Tambahkan tahun ajaran pada tabel pendaftar, tentukan kuota ruangan berdasarkan tahun ajaran tsb sehingga ruangan dapat ditentukan lagi dari awal pada tahun ajaran berikutnya. (PENDING: HAPUS SEMUA DATA RUANGAN PADA TAHUN AJARAN BERIKUTNYA!)
+3. Disable select gedung jika gedung belum ada. (DONE)
+4. Tampilkan keterangan gedung yang kosong pada listgroup kanan halaman index rooms. (DONE)
+5. Sambung metode register (DONE)
+6. Lanjutkan dapat token API (DONE)
+7. Lanjutkan old(value) register step three (DONE)
+8. Modifikasi step one pada bagian jumlah saudara menjadi otomatis (DONE)
+9. Tampilkan data pendaftar di halaman admin (DONE)
+10. Kerjakan dashboard pendaftar (DONE)
+11. Selesaikan PDF kartu ujian (DONE)
+12. Kerjakan data santri di dashboard admin (DONE)
+13. Kerjakan fungsi verifikasi manual oleh supervisor (DONE)
+----- NEXT
+14. Tampilkan profil santri di halaman admin (DONE)
+15. Buat fungsi ubah data pada dashboard santri (DONE)
+16. Perbaiki tampilan header form registrasi santri (DONE)
+17. Kolom email non required (DONE)
+18. Penghasilan perbulan jadi angka (DONE)
+19. Opsi surat kesehatan pada kelengkapan berkas (DONE)
+20. Step registrasi diwarnai (DONE)
+21. Tambah pilihan pesantren pada step 1 setelah password (DONE)
+22. Menu pengaturan hanya untuk supervisor (DONE)
+23. Fitur lupa password dengan validasi no kk, nik, nisn (DONE)
+24. Lakukan validasi dengan mengecek nomor virtual account (nova) registrant saat upload file excel (DONE)
+25. Kerjakan proses lupa password dari controller (DONE)
+26. Sambung proses ubah examcard pada RegistController (DONE)
+27. Validasi NIK, dan No. KK menjadi 16 digit sesuai ketentuan - dilakukan sesaat sebelum launching. (DONE)
+28. Sambung disain form edit beserta fungsi update untuk ubah data calon santri. (DONE)
+29. UJI COBA SISTEM!
+
+UPLOAD STEP:
+1. Import mysql structure
+2. Replace App, public, resource folder
+
+
+
+
+
+old login
+---------
+
+@if (Route::has('login'))
+<div class="top-right links">
+	@auth
+	<a href="{{ route('registrant.dashboard') }}">Home</a>
+	@else
+	<a href="{{ route('registrant.login') }}">Login</a>
+	
+	@if (Route::has('register'))
+	<a href="{{ route('register') }}">Register</a>
+	@endif
+	@endauth
+</div>
+@endif
+
+
+
+
+//----- no ujian
+
+private function savenoujian()
+	{
+		$data = Registrant::find(Auth::id());
+
+		$num = Nomorujian::max('index');
+		if($num == null) {
+			$num = 1;
+		} else {
+			$num = $num + 1;
+		}
+
+		if($data->regschool->schlvl == 'SD' && $data->gender == 1){
+			$char = 'A';
+		} elseif($data->regschool->schlvl == 'SD' && $data->gender == 2){
+			$char = 'B';
+		} elseif($data->regschool->schlvl == 'SMP' && $data->gender == 1){
+			$char = 'C';
+		} else {
+			$char = 'D';
+		}
+		
+		$digit = strlen($num);
+		if($digit == 1){
+			$zeros = '000';
+		}elseif($digit == 2){
+			$zeros = '00';
+		}elseif($digit == 3){
+			$zeros = '0';
+		}else{
+			$zeros = '';
+		}
+
+		$number = $char . $zeros . $num;
+
+		// save nomor ujian
+		$n = new Nomorujian();
+		$n->registrant_id = Auth::id();
+		$n->index = $num;
+		$n->number = $number;
+		$n->save();
+	}
+
+	
+	//------ select penghasilan perbulan
+	<select name="fsal" class="ui dropdown">
+		@foreach ($salaries as $fsal)
+		<option value="{{$fsal}}"{{old('fsal') == $fsal ? ' selected' : ''}}>{{$fsal}}</option>
+		@endforeach
+	</select>
+

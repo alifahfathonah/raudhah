@@ -1,0 +1,8 @@
+.form-control:invalid:focus,
+.form-control.is-required:focus {
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(231, 74, 59, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(231, 74, 59, 0.25);
+}
+.form-control.is-required {
+    border-color: #e74a3b;
+}

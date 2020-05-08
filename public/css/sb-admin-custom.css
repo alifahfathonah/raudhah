@@ -1,0 +1,27 @@
+.bg-gradient-custom {
+    background-color: #007a77;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(10%, #007a77),
+        to(#046e83)
+    );
+    background-image: linear-gradient(180deg, #007a77 10%, #046e83 100%);
+    background-size: cover;
+}
+
+.text-custom {
+    color: #007a77 !important;
+}
+
+a.text-custom:hover,
+a.text-custom:focus {
+    color: #046e83 !important;
+}
+
+.inputfileexcel {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}

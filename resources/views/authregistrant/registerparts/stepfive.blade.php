@@ -1,0 +1,1 @@
+@include('authregistrant.registerparts.formlogin')

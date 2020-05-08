@@ -1,0 +1,61 @@
+body {
+    background-color: #fafafa;
+}
+.uppercase-input {
+    text-transform: uppercase;
+}
+.container {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+.pt-1 {
+    padding-top: 0.5rem;
+}
+.cost-text {
+    color: blue;
+}
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.ui.steps .step.active {
+    background: #30318b;
+}
+.ui.steps .step.active:after {
+    background: #30318b;
+}
+
+.ui.steps .step.active .title {
+    color: #fafafa;
+}
+.ui.steps .step.active .description {
+    color: rgba(255, 255, 255, 0.85);
+}
+.ui.ordered.steps .step.active:before,
+.ui.steps .active.step .icon {
+    color: #ffffff;
+}
+
+.sitecolor {
+    color: #30318b !important;
+}
+.mandiricolor {
+    color: #006837 !important;
+}
+::-webkit-input-placeholder {
+    /* Edge */
+    text-transform: none !important;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer */
+    text-transform: none !important;
+}
+
+::placeholder {
+    text-transform: none !important;
+}
