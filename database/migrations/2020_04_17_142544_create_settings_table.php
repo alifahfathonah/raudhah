@@ -16,6 +16,7 @@ class CreateSettingsTable extends Migration
 		Schema::create('settings', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->boolean('registration')->default(false);
+			$table->longText('message')->nullable();
 			$table->string('years');
 			$table->bigInteger('cost');
 			$table->string('nova');

@@ -120,6 +120,7 @@ Route::prefix('admin')->group(function () {
 		Route::get('settings', 'SettingController@index')->name('admin.settings');
 		Route::post('settings/update', 'SettingController@update')->name('admin.settings.update');
 		Route::post('settings/updatecost', 'SettingController@updatecost')->name('admin.settings.update.cost');
+		Route::post('settings/closemessage', 'SettingController@closemessage')->name('admin.settings.update.closemessage');
 		
 		// ajax
 		Route::post('settings/ajax/registration/toggle', 'AjaxController@registrationtoggle')->name('admin.ajax.registration.toggle');

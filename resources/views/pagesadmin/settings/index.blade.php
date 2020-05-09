@@ -25,6 +25,26 @@
 						</div>
 					</div>
 				</form>
+				<form action="{{route('admin.settings.update.closemessage')}}" method="post">
+					@csrf
+					<input type="hidden" name="id" value="{{$setting->id}}">
+					<div class="form-group row">
+						<label for="closemessage" class="col-sm-3 col-form-label">Pesan Yang Ditampilkan</label>
+						<div class="col-sm-9">
+							<textarea name="closemessage" id="closemessage" rows="3" class="form-control">{{$setting->message}}</textarea>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-12 d-flex align-items-center justify-content-end">
+							<button type="submit" class="btn btn-info btn-icon-split btn-sm">
+								<span class="icon text-white-50">
+									<i class="fas fa-check"></i>
+								</span>
+								<span class="text">Simpan</span>
+							</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

@@ -151,6 +151,14 @@ class SettingController extends Controller
 		);
 		return back()->withToastSuccess('Pengaturan berhasil diubah.');
 	}
+
+	public function closemessage(Request $request)
+	{
+		$id = $request->id;
+		$msg = $request->closemessage;
+		Setting::where('id', $id)->update(['message' => $msg]);
+		return back()->withToastSuccess('Pesan penutupan pendaftaran berhasil disimpan.');
+	}
 	
 	public function updatecost(Request $request)
 	{

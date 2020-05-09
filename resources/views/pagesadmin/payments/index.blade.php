@@ -67,7 +67,7 @@
 					</div>
 					{{-- paynumber --}}
 					<div class="form-group">
-						<label for="paynumber">Nomor Referensi Transfer<sup class="text-danger">*</sup></label>
+						<label for="paynumber">16 Digit Nomor Virtual Account<sup class="text-danger">*</sup></label>
 						<input name="paynumber" type="text" id="paynumber" class="form-control @error('paynumber') is-invalid @enderror" value="{{old('paynumber')}}">
 					</div>
 					{{-- paynominal --}}
@@ -198,6 +198,13 @@
 		numeralDecimalMark: ',',
 		delimiter: '.'
 	});
+	// cleave va
+	
+	var cleave = new Cleave("#paynumber", {
+		numericOnly: true,
+		blocks: [16],
+	});
+	
 	// file excel input
 	$("#cardExcel").click(function(e){
 		e.stopPropagation();

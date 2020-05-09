@@ -32,6 +32,8 @@ TO DO:
 27. Validasi NIK, dan No. KK menjadi 16 digit sesuai ketentuan - dilakukan sesaat sebelum launching. (DONE)
 28. Sambung disain form edit beserta fungsi update untuk ubah data calon santri. (DONE)
 29. UJI COBA SISTEM!
+30. Upload file materi ke website
+31. Set kartu ujian ke ukuran asli
 
 UPLOAD STEP:
 1. Import mysql structure

@@ -22,6 +22,7 @@ class PaymentsImport implements ToModel, WithStartRow
 		
 		$date = $this->transformDate($row[1]);
 		$nova = $this->trimva($row[2]);
+		// dd($nova);
 		$exists = Payment::where('paynumber', $nova)->first();
 		if(!$exists){
 
@@ -34,7 +35,7 @@ class PaymentsImport implements ToModel, WithStartRow
 			return new Payment([
 				'paydate'    => $date,
 				'paynumber'  => $nova, 
-				'paynominal' => $row[3],
+				'paynominal' => $row[3] ?? 0,
 				'status'		 => $s,
 				]);
 			}
