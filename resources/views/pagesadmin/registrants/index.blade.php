@@ -104,6 +104,17 @@
 	</div>
 </div>
 
+{{-- information --}}
+<div class="alert alert-info mb-5 alert-dismissible fade show" role="alert">
+  <h4 class="alert-heading">Informasi!</h4>
+  <p>Pendaftar dapat mendownload <b>Kartu Ujian</b> dan <b>File Materi</b> hanya jika pembayaran sudah terverifikasi <b>DAN</b> Kartu Ujian sudah dibuat.</p>
+  <hr>
+	<p class="mb-0">Pastikan semua pendaftar yang terverifikasi sudah memiliki kartu ujian dalam 24 jam.</p>
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
 <div class="row">
 	<div class="col-12">
 		<div class="card shadow mb-4">

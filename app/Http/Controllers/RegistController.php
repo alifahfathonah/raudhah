@@ -112,6 +112,7 @@ class RegistController extends Controller
 		Room::where('id', $request->dormroom)->update(['vnow' => $r + 1]);
 		Classroom::where('id', $request->classroom)->update(['vnow' => $c + 1]);
 		Foodtable::where('id', $request->foodtable)->update(['vnow' => $f + 1]);
+		Regstep::where('registrant_id', $request->idtostore)->update(['steppay' => 2]);
 		return redirect()->route('admin.registrants', 'verified')->withToastSuccess('Kartu Ujian berhasil dibuat.');
 	}
 	

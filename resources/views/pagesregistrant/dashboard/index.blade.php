@@ -23,8 +23,8 @@
 	$v = Auth::user()->isverified;
 	@endphp
 	
-	{{-- @if(Auth::user()->isverified == true && Auth::user()->regstep['steppay'] == 2) --}}
-	@if(Auth::user()->isverified == true)
+	@if(Auth::user()->isverified == true && Auth::user()->regstep['steppay'] == 2)
+	{{-- @if(Auth::user()->isverified == true) --}}
 	{{-- verified --}}
 	@include('pagesregistrant.parts.steptwo')
 	@else
