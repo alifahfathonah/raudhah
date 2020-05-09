@@ -31,7 +31,7 @@
 					<i class="file archive outline icon"></i>
 					File Materi
 				</div>
-				<a href="#" class="ui labeled icon primary huge button"><i class="ui download icon"></i> Unduh</a>
+				<a href="{{asset('MATERI_UJIAN_MASUK_RAUDHAH.zip')}}" class="ui labeled icon primary huge button"><i class="ui download icon"></i> Unduh</a>
 				<div class="ui info message">
 					File materi dapat di unduh sebagai pelengkap pengantar materi pelajaran.
 				</div>

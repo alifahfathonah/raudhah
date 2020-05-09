@@ -34,6 +34,7 @@ TO DO:
 29. UJI COBA SISTEM!
 30. Upload file materi ke website
 31. Set kartu ujian ke ukuran asli
+32. Tambah array pekerjaan orang tua ['Ibu Rumah Tangga', 'Tidak Bekerja'] dan hapus 'Mengurus Rumah Tangga' dari array tsb.
 
 UPLOAD STEP:
 1. Import mysql structure

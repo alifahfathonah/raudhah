@@ -106,13 +106,13 @@
 
 {{-- information --}}
 <div class="alert alert-info mb-5 alert-dismissible fade show" role="alert">
-  <h4 class="alert-heading">Informasi!</h4>
-  <p>Pendaftar dapat mendownload <b>Kartu Ujian</b> dan <b>File Materi</b> hanya jika pembayaran sudah terverifikasi <b>DAN</b> Kartu Ujian sudah dibuat.</p>
-  <hr>
+	<h4 class="alert-heading">Informasi!</h4>
+	<p>Pendaftar dapat mendownload <b>Kartu Ujian</b> dan <b>File Materi</b> hanya jika pembayaran sudah terverifikasi <b>DAN</b> Kartu Ujian sudah dibuat.</p>
+	<hr>
 	<p class="mb-0">Pastikan semua pendaftar yang terverifikasi sudah memiliki kartu ujian dalam 24 jam.</p>
 	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>
 
 <div class="row">
@@ -129,122 +129,141 @@
 				@if (Request::segment(3) == 'verified')
 				<h6 class="m-0 font-weight-bold text-custom">Data Calon Santri Terverifikasi</h6>
 				@endif
-				<button class="btn btn-icon-split btn-sm btn-info" data-toggle="modal" data-target="#modalHelp">
-					<span class="icon">
-						<i class="fas fa-question-circle"></i>
-					</span>
-					<span class="text">Bantuan</span>
-				</button>
+				<div class="d-flex justify-content-between">
+					<button class="btn btn-icon-split btn-sm btn-info mx-2" data-toggle="modal" data-target="#modalHelp">
+						<span class="icon">
+							<i class="fas fa-question-circle"></i>
+						</span>
+						<span class="text">Bantuan</span>
+					</button>
+					{{-- export exccel --}}
+					<div class="dropdown">
+						<button class="btn btn-icon-split btn-sm btn-success dropdown-toggle" type="button" id="exportExcel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="icon">
+								<i class="fas fa-file-excel"></i>
+							</span>
+							<span class="text">Export Excel</span>
+						</button>
+						<div class="dropdown-menu" aria-labelledby="exportExcel">
+							<a class="dropdown-item" href="#">Seluruh Data Pendaftar</a>
+							<a class="dropdown-item" href="#">Data Pendaftar Terverifikasi</a>
+							<a class="dropdown-item" href="#">Data Pendaftar Pending</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">Data Pendaftar RAUDHAH-1</a>
+							<a class="dropdown-item" href="#">Data Pendaftar RAUDHAH-2</a>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- Card Body -->
 			<div class="card-body">
 				<div class="table-responsive">
-				<table id="dataTable" class="table table-striped">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>NIK</th>
-							<th>Nama</th>
-							<th>JK</th>
-							<th>Asal Sekolah</th>
-							<th>Orang Tua</th>
-							<th>Opsi</th>
-						</tr>
-					</thead>
-					@php $no = 1 @endphp
-					<tbody>
-						@foreach ($regs as $r)
-						<tr>
-							<td>{{$no++}}</td>
-							{{--  --}}
-							<td>
-								{{$r->username}}<br>
-								@if($r->isverified == true)
-								<span class="badge badge-success badge-pill">Verified</span>
-								@if($r->manualverify == true)
-								<span class="badge badge-secondary badge-pill">Manual</span>
-								@else
-								<span class="badge badge-secondary badge-pill">Auto</span>
-								@endif
-								@else
-								<span class="badge badge-warning badge-pill">Pending</span>
-								@if($r->regstep['stepreg'] <= 4)
-								<span class="badge badge-danger badge-pill">Incomplete</span>
-								@else
-								<span class="badge badge-primary badge-pill">Complete</span>
-								@endif
-								@endif
-								<hr>
-								@if($r->examcard['numchar'])
-								
-								<a href="{{route('admin.examcard.edit', $r->id)}}" class="btn btn-icon-split btn-sm btn-secondary">
-									<span class="icon"><i class="fas fa-clipboard"></i></span>
-									<span class="text">{{$r->examcard['numchar']}}</span>
-								</a>
-								<a href="{{route('admin.examcard.view', $r->id)}}" target="_blank" class="btn btn-sm btn-dark">
-									<i class="fas fa-print"></i>
-								</a>
-								@endif
-								
-							</td>
-							{{--  --}}
-							<td>
-								{{$r->name}}<br>
-								<small class="text-muted sub-title font-weight-light">
-									{{$r->birthplace}}, {{date('d/m/Y', strtotime($r->birthdate))}}
-								</small>
-								<hr>
-								<small>Nomor Virtual Account: </small><br>
-								<strong>{{$r->nova}}</strong>
-							</td>
-							<td class="font-weight-bold">{{$r->gender == 1 ? 'L' : 'P'}}</td>
-							{{--  --}}
-							<td>
-								{{$r->regschool['schname']}}<br>
-								<small class="text-muted sub-title font-weight-light">{{$r->regschool['schkab']}} - {{$r->regschool['schprov']}}</small>
-								<hr>
-								<small>Pilihan Pesantren: </small><br>
-								<strong>@if(strstr($r->destination, 'LUMUT')) RAUDHAH-2 @else RAUDHAH-1 @endif</strong>
-							</td>
-							{{--  --}}
-							<td>
-								{{$r->regparent['fname']}}<br>
-								<small class="text-muted sub-title font-weight-light">
-									<i class="fas fa-phone-alt"></i>	{{$r->regparent['fphone']}}
-								</small>
-								<hr>
-								{{$r->regparent['mname']}}<br>
-								<small class="text-muted sub-title font-weight-light">
-									<i class="fas fa-phone-alt"></i>	{{$r->regparent['mphone']}} 
-								</small>
-							</td>
-							{{--  --}}
-							<td>
-								<div class="btn-group" role="group">
-									<a href="{{route('admin.registrants.profile', $r->id)}}" target="_blank" class="btn btn-success btn-sm">
-										<i class="fas fa-user"></i>
+					<table id="dataTable" class="table table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>NIK</th>
+								<th>Nama</th>
+								<th>JK</th>
+								<th>Asal Sekolah</th>
+								<th>Orang Tua</th>
+								<th>Opsi</th>
+							</tr>
+						</thead>
+						@php $no = 1 @endphp
+						<tbody>
+							@foreach ($regs as $r)
+							<tr>
+								<td>{{$no++}}</td>
+								{{--  --}}
+								<td>
+									{{$r->username}}<br>
+									@if($r->isverified == true)
+									<span class="badge badge-success badge-pill">Verified</span>
+									@if($r->manualverify == true)
+									<span class="badge badge-secondary badge-pill">Manual</span>
+									@else
+									<span class="badge badge-secondary badge-pill">Auto</span>
+									@endif
+									@else
+									<span class="badge badge-warning badge-pill">Pending</span>
+									@if($r->regstep['stepreg'] <= 4)
+									<span class="badge badge-danger badge-pill">Incomplete</span>
+									@else
+									<span class="badge badge-primary badge-pill">Complete</span>
+									@endif
+									@endif
+									<hr>
+									@if($r->examcard['numchar'])
+									
+									<a href="{{route('admin.examcard.edit', $r->id)}}" class="btn btn-icon-split btn-sm btn-secondary">
+										<span class="icon"><i class="fas fa-clipboard"></i></span>
+										<span class="text">{{$r->examcard['numchar']}}</span>
 									</a>
-									@if($r->isverified == true && $r->examcard == null)
-									<a href="{{route('admin.examcard.set', $r->id)}}" class="btn btn-primary btn-sm">
-										<i class="fas fa-clipboard-list"></i>
+									<a href="{{route('admin.examcard.view', $r->id)}}" target="_blank" class="btn btn-sm btn-dark">
+										<i class="fas fa-print"></i>
 									</a>
 									@endif
-									@if(Auth::user()->role == 2)
-									@if($r->isverified == false)
-									<a href="#" class="btn btn-warning btn-sm" id="setManualVerification" data-toggle="modal" data-target="#manualVerification" data-id="{{$r->id}}">
-										<i class="fas fa-check"></i>
-									</a>
-									@endif
-									<a href="#" class="btn btn-danger btn-sm" id="deleteRegistrant" data-toggle="modal" data-target="#modalDeleteRegistrant" data-id="{{$r->id}}" data-nik="{{$r->username}}" data-nama="{{$r->name}}">
-										<i class="fas fa-trash"></i>
-									</a>
-									@endif
-								</div>
-							</td>
-						</tr>
-						@endforeach
-					</tbody>
-				</table>
+									
+								</td>
+								{{--  --}}
+								<td>
+									{{$r->name}}<br>
+									<small class="text-muted sub-title font-weight-light">
+										{{$r->birthplace}}, {{date('d/m/Y', strtotime($r->birthdate))}}
+									</small>
+									<hr>
+									<small>Nomor Virtual Account: </small><br>
+									<strong>{{$r->nova}}</strong>
+								</td>
+								<td class="font-weight-bold">{{$r->gender == 1 ? 'L' : 'P'}}</td>
+								{{--  --}}
+								<td>
+									{{$r->regschool['schname']}}<br>
+									<small class="text-muted sub-title font-weight-light">{{$r->regschool['schkab']}} - {{$r->regschool['schprov']}}</small>
+									<hr>
+									<small>Pilihan Pesantren: </small><br>
+									<strong>@if(strstr($r->destination, 'LUMUT')) RAUDHAH-2 @else RAUDHAH-1 @endif</strong>
+								</td>
+								{{--  --}}
+								<td>
+									{{$r->regparent['fname']}}<br>
+									<small class="text-muted sub-title font-weight-light">
+										<i class="fas fa-phone-alt"></i>	{{$r->regparent['fphone']}}
+									</small>
+									<hr>
+									{{$r->regparent['mname']}}<br>
+									<small class="text-muted sub-title font-weight-light">
+										<i class="fas fa-phone-alt"></i>	{{$r->regparent['mphone']}} 
+									</small>
+								</td>
+								{{--  --}}
+								<td>
+									<div class="btn-group" role="group">
+										<a href="{{route('admin.registrants.profile', $r->id)}}" target="_blank" class="btn btn-success btn-sm">
+											<i class="fas fa-user"></i>
+										</a>
+										@if($r->isverified == true && $r->examcard == null)
+										<a href="{{route('admin.examcard.set', $r->id)}}" class="btn btn-primary btn-sm">
+											<i class="fas fa-clipboard-list"></i>
+										</a>
+										@endif
+										@if(Auth::user()->role == 2)
+										@if($r->isverified == false)
+										<a href="#" class="btn btn-warning btn-sm" id="setManualVerification" data-toggle="modal" data-target="#manualVerification" data-id="{{$r->id}}">
+											<i class="fas fa-check"></i>
+										</a>
+										@endif
+										<a href="#" class="btn btn-danger btn-sm" id="deleteRegistrant" data-toggle="modal" data-target="#modalDeleteRegistrant" data-id="{{$r->id}}" data-nik="{{$r->username}}" data-nama="{{$r->name}}">
+											<i class="fas fa-trash"></i>
+										</a>
+										@endif
+									</div>
+								</td>
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div><!-- /card -->
