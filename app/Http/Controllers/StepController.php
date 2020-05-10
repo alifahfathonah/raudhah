@@ -21,6 +21,63 @@ class StepController extends Controller
 		$this->middleware('guest:registrant');
 	}
 	
+	
+	public function ajaxcheckinput(Request $request)
+	{
+		$f = $request->field;
+		$v = $request->value;
+		// 
+		$c = Registrant::where($f, $v)->first();
+		// 
+		if($c) {return response()->json(['errors' => 'true']);}
+		else {return response()->json(['errors' => 'false']);}
+	}
+	
+	
+	public function forgotpassword()
+	{
+		// 
+		return view('authregistrant.registerparts.forgotpassword');
+	}
+	
+	public function forgotsubmit(Request $request)
+	{
+		// 
+		$validator = Validator::make($request->all(), [
+			// 'email'		=> 'required_if:username,==,11',
+			'kknumber'	=> 'required',
+			'nisn'			=> 'required',
+			'username'	=> 'required',
+			'password'	=> 'required|min:6',
+		], [
+			'nisn.required'			=> 'Kolom No. KTP Ayah tidak boleh dikosongkan!',		
+			'kknumber.required' => 'Kolom No. KK tidak boleh dikosongkan!',		
+			'username.required' => 'Kolom NIK tidak boleh dikosongkan!',		
+			'password.required' => 'Kolom Password tidak boleh dikosongkan!',		
+			'password.min'			=> 'Password minimal 6 karakter.',
+			]
+		);
+		// 
+		if ($validator->fails()) {
+			return back()->withInput()->withErrors($validator);
+		}
+		// 
+		$regis = Registrant::where(['nisn' => $request->nisn, 'kknumber' => $request->kknumber, 'username' => $request->username])->first();
+		if(!$regis){
+			return back()->withInput()->withErrors(['invalid' => 'Data yang anda masukkan tidak valid!']);
+		}
+		// 
+		$pass = Hash::make($request->password);
+		// 
+		$regis->update([
+			'password' => $pass,
+			]
+		);
+		// 
+		return redirect()->route('registrant.login')->with(['success' => 'Password berhasil diubah, silahkan login.']);
+		
+	}
+	
 	private $bloodtypes = [
 		'A', 'B', 'AB', 'O'
 	];
@@ -468,59 +525,5 @@ class StepController extends Controller
 		
 	}
 	
-	public function ajaxcheckinput(Request $request)
-	{
-		$f = $request->field;
-		$v = $request->value;
-		// 
-		$c = Registrant::where($f, $v)->first();
-		// 
-		if($c) {return response()->json(['errors' => 'true']);}
-		else {return response()->json(['errors' => 'false']);}
-	}
-	
-	
-	public function forgotpassword()
-	{
-		// 
-		return view('authregistrant.registerparts.forgotpassword');
-	}
-	
-	public function forgotsubmit(Request $request)
-	{
-		// 
-		$validator = Validator::make($request->all(), [
-			// 'email'		=> 'required_if:username,==,11',
-			'kknumber'	=> 'required',
-			'nisn'			=> 'required',
-			'username'	=> 'required',
-			'password'	=> 'required|min:6',
-		], [
-			'nisn.required'			=> 'Kolom No. KTP Ayah tidak boleh dikosongkan!',		
-			'kknumber.required' => 'Kolom No. KK tidak boleh dikosongkan!',		
-			'username.required' => 'Kolom NIK tidak boleh dikosongkan!',		
-			'password.required' => 'Kolom Password tidak boleh dikosongkan!',		
-			'password.min'			=> 'Password minimal 6 karakter.',
-			]
-		);
-		// 
-		if ($validator->fails()) {
-			return back()->withInput()->withErrors($validator);
-		}
-		// 
-		$regis = Registrant::where(['nisn' => $request->nisn, 'kknumber' => $request->kknumber, 'username' => $request->username])->first();
-		if(!$regis){
-			return back()->withInput()->withErrors(['invalid' => 'Data yang anda masukkan tidak valid!']);
-		}
-		// 
-		$pass = Hash::make($request->password);
-		// 
-		$regis->update([
-			'password' => $pass,
-		]);
-		// 
-		return redirect()->route('registrant.login')->with(['success' => 'Password berhasil diubah, silahkan login.']);
-		
-	}
 	
 }

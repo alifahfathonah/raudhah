@@ -41,7 +41,7 @@ class RegistController extends Controller
 		if($q == 'pending') {
 			$regs = Registrant::where('isverified', false)->orderBy('created_at', 'desc')->get();
 		} elseif($q == 'verified'){
-			$regs = Registrant::where('isverified', true)->get();
+			$regs = Registrant::where('isverified', true)->orderBy('updated_at', 'desc')->get();
 		} else {
 			$regs = Registrant::orderBy('id', 'desc')->get();
 		}
@@ -187,8 +187,9 @@ class RegistController extends Controller
 	{
 		$data = Registrant::find($id);
 		$card = Examcard::where('registrant_id', $id)->first();
-		$pdf = PDF::loadview('pagesregistrant.dashboard.kartuujian',['data' => $data, 'card' => $card]);
-		return $pdf->stream($card->numchar);
+		// $paper = 
+		$pdf = PDF::loadview('pagesregistrant.dashboard.examcard',['data' => $data, 'card' => $card]);
+		return $pdf->stream($card->numchar . '.pdf');
 	}
 
 	public function registrantprofile($id)

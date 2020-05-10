@@ -17,6 +17,8 @@ class SettingController extends Controller
 		'name.required'			=> 'Nama institusi tidak boleh kosong!',
 		'address.required'	=> 'Alamat institusi tidak boleh kosong!',
 		'city.required'			=> 'Kota tidak boleh kosong!',
+		'email.required'		=> 'Alamat email tidak boleh kosong!',
+		'email.email'				=> 'Mohon isi email yang valid.',
 		'phone.required'		=> 'Nomor telepon tidak boleh kosong!',
 		'pic.image' 				=> 'Foto tidak valid!',
 		'pic.mimes' 				=> 'Format foto harus jpg/png',
@@ -102,6 +104,7 @@ class SettingController extends Controller
 			'name'		=> 'required',
 			'address'	=> 'required',
 			'city'		=> 'required',
+			'email'		=> 'required|email',
 			'phone'		=> 'required',
 			'pic'		 	=> 'image|mimes:jpeg,jpg,png|max:1024',
 		], $this->errmsg);

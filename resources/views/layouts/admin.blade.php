@@ -81,6 +81,7 @@
 				</div>
 			</li>
 			
+			@if(Auth::user()->role <= 2)
 			<!-- Nav Item - Pembayaran -->
 			<li class="nav-item{{$seg == 'payments' ? ' active' : ''}}">
 				<a class="nav-link" href="{{route('admin.payments')}}">
@@ -88,6 +89,7 @@
 					<span>Data Pembayaran</span>
 				</a>
 			</li>
+			@endif
 			
 			<!-- Divider -->
 			<hr class="sidebar-divider">

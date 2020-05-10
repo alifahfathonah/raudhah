@@ -31,10 +31,10 @@ TO DO:
 26. Sambung proses ubah examcard pada RegistController (DONE)
 27. Validasi NIK, dan No. KK menjadi 16 digit sesuai ketentuan - dilakukan sesaat sebelum launching. (DONE)
 28. Sambung disain form edit beserta fungsi update untuk ubah data calon santri. (DONE)
-29. UJI COBA SISTEM!
-30. Upload file materi ke website
-31. Set kartu ujian ke ukuran asli
-32. Tambah array pekerjaan orang tua ['Ibu Rumah Tangga', 'Tidak Bekerja'] dan hapus 'Mengurus Rumah Tangga' dari array tsb.
+29. UJI COBA SISTEM! (DONE)
+30. Upload file materi ke website (DONE)
+31. Set kartu ujian ke ukuran asli (DONE)
+32. Tambah array pekerjaan orang tua ['Ibu Rumah Tangga', 'Tidak Bekerja'] dan hapus 'Mengurus Rumah Tangga' dari array tsb. (DONE)
 
 UPLOAD STEP:
 1. Import mysql structure

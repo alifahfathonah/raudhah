@@ -176,6 +176,13 @@
 							<input name="postal" type="text" class="form-control" id="postal" value="{{old('postal') ? old('postal') : $setting->postal}}">
 						</div>
 					</div>
+					{{-- email --}}
+					<div class="form-group row">
+						<label for="email" class="col-sm-3 col-form-label">Alamat Email<sup class="text-danger">*</sup></label>
+						<div class="col-sm-9">
+							<input name="email" type="text" class="form-control @error('email') is-invalid @enderror" id="email" value="{{old('email') ? old('email') : $setting->email}}">
+						</div>
+					</div>
 					{{-- phone --}}
 					<div class="form-group row">
 						<label for="phone" class="col-sm-3 col-form-label">Nomor Telepon<sup class="text-danger">*</sup></label>

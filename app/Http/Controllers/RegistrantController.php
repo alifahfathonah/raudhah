@@ -440,19 +440,18 @@ class RegistrantController extends Controller
 		// dd($data->examcard['numchar']);
 		
 		
-		$pdf = PDF::loadview('pagesregistrant.dashboard.kartuujian',['data' => $data, 'card' => $card]);
-		return $pdf->stream($card->numchar);
+		$pdf = PDF::loadview('pagesregistrant.dashboard.examcard',['data' => $data, 'card' => $card]);
+		return $pdf->stream($card->numchar . '.pdf');
 		// return $pdf->download($data->nomorujian['number']);
-		
 		// return view('pagesregistrant.dashboard.kartuujian', ['data' => $data]);
 	}
 	
 	
-
+	
 	// ---------------------------------------
 	// UPDATE DATA REGISTRANT
 	// ---------------------------------------
-
+	
 	// biodata
 	public function update(Request $request)
 	{
@@ -514,7 +513,7 @@ class RegistrantController extends Controller
 		// 
 		return back()->withToastSuccess('Biodata berhasil diubah.');
 	}
-
+	
 	// siblings
 	public function updatesiblings(Request $request)
 	{
@@ -556,7 +555,7 @@ class RegistrantController extends Controller
 		return back()->withToastSuccess('Data saudara berhasil diubah.');
 		
 	}
-
+	
 	// school
 	public function updateschool(Request $request)
 	{
@@ -622,119 +621,119 @@ class RegistrantController extends Controller
 		return back()->withToastSuccess('Data sekolah berhasil diubah.');
 		// 
 	}
-
-// ---------------------------------------
-public function updateparents(Request $request)
-{
-	$validator = Validator::make($request->all(), [
-		'fname'			=> 'required',
-		'fadd'			=> 'required',
-		'fprov'			=> 'required',
-		'fkab'			=> 'required',
-		'fkec'			=> 'required',
-		'fkel'			=> 'required',
-		'fphone'		=> 'required',
-		'fktp'			=> 'required|size:16',
-		'fsal'			=> 'required',
-		// 
-		'mname'			=> 'required',
-		'madd'			=> 'required_if:serumah,==,false',
-		'mprov'			=> 'required_if:serumah,==,false',
-		'mkab'			=> 'required_if:serumah,==,false',
-		'mkec'			=> 'required_if:serumah,==,false',
-		'mkel'			=> 'required_if:serumah,==,false',
-		'mphone'		=> 'required',
-		'mktp'			=> 'required|size:16',
-		'msal'			=> 'required',
-		// 
-		'donaturname'		=> 'required_if:pembiayaan,==,false',
-		'donaturphone'	=> 'required_if:pembiayaan,==,false',
-		'donaturadd'		=> 'required_if:pembiayaan,==,false',
-		'dprov'					=> 'required_if:pembiayaan,==,false',
-		'dkab'					=> 'required_if:pembiayaan,==,false',
-		'dkec'					=> 'required_if:pembiayaan,==,false',
-		'dkel'					=> 'required_if:pembiayaan,==,false',
-		
-	], $this->errmsg4);
-	// 
-	if ($validator->fails()) {
-		return back()->withInput()->withErrors($validator);
-	}
-	// 
-	$id = Auth::id();
-	// delete old data
-	Regparent::where('registrant_id', $id)->delete();
-	// store data
-	$s = new Regparent();
-	$s->registrant_id = $id;
-	// ayah
-	$s->fname					= $request->fname;
-	$s->flive					= $request->flive == 'true' ? true : false;
-	$s->fadd					= $request->fadd;
-	$s->fprov					= $request->fprov;
-	$s->fkab					= $request->fkab;
-	$s->fkec					= $request->fkec;
-	$s->fkel					= $request->fkel;
-	$s->fphone				= $request->fphone;
-	$s->fwa						= $request->fwa;
-	$s->fktp					= $request->fktp;
-	$s->fedu					= $request->fedu;
-	$s->freli					= $request->freli;
-	$s->fmari					= $request->fmari == 'true' ? true : false;
-	$s->fwork					= $request->fwork;
-	$s->fsal					= $request->fsal;
-	$s->faddsal				= $request->faddsal;
-	// ibu
-	$s->mname					= $request->mname;
-	$s->mlive					= $request->mlive == 'true' ? true : false;
-	if($request->serumah == 'true'){
-		$s->madd					= $request->fadd;
-		$s->mprov					= $request->fprov;
-		$s->mkab					= $request->fkab;
-		$s->mkec					= $request->fkec;
-		$s->mkel					= $request->fkel;
-	} else {
-		$s->madd					= $request->madd;
-		$s->mprov					= $request->mprov;
-		$s->mkab					= $request->mkab;
-		$s->mkec					= $request->mkec;
-		$s->mkel					= $request->mkel;
-	}
-	$s->mphone				= $request->mphone;
-	$s->mwa						= $request->mwa;
-	$s->mktp					= $request->mktp;
-	$s->medu					= $request->medu;
-	$s->mreli					= $request->mreli;
-	$s->mwork					= $request->mwork;
-	$s->msal					= $request->msal;
-	$s->maddsal				= $request->maddsal;
-	// pembiaya
-	$s->pembiayaan		= $request->pembiayaan == 'true' ? true : false;
-	if($request->pembiayaan == 'false'){
-		$s->donaturname		= $request->donaturname;
-		$s->donaturrels		= $request->donaturrels;
-		$s->donaturphone	= $request->donaturphone;
-		$s->donaturadd		= $request->donaturadd;
-		$s->dprov					= $request->dprov;
-		$s->dkab					= $request->dkab;
-		$s->dkec					= $request->dkec;
-		$s->dkel					= $request->dkel;
-	}
-	// berkas
-	$s->berkasijz		= $request->berkasijz == 'true' ? true : false;
-	$s->berkasskhun	= $request->berkasskhun == 'true' ? true : false;
-	$s->berkasnisn	= $request->berkasnisn == 'true' ? true : false;
-	$s->berkaskk		= $request->berkaskk == 'true' ? true : false;
-	$s->berkasktp		= $request->berkasktp == 'true' ? true : false;
-	$s->berkasfoto	= $request->berkasfoto == 'true' ? true : false;
-	$s->berkasrapor	= $request->berkasrapor == 'true' ? true : false;
-	$s->berkasskbb	= $request->berkasskbb == 'true' ? true : false;
-	$s->berkaskes		= $request->berkaskes == 'true' ? true : false;
-	// 
-	$s->save();
-	// 
-	return back()->withToastSuccess('Data orang tua berhasil diubah.');
 	
-}
-
+	// ---------------------------------------
+	public function updateparents(Request $request)
+	{
+		$validator = Validator::make($request->all(), [
+			'fname'			=> 'required',
+			'fadd'			=> 'required',
+			'fprov'			=> 'required',
+			'fkab'			=> 'required',
+			'fkec'			=> 'required',
+			'fkel'			=> 'required',
+			'fphone'		=> 'required',
+			'fktp'			=> 'required|size:16',
+			'fsal'			=> 'required',
+			// 
+			'mname'			=> 'required',
+			'madd'			=> 'required_if:serumah,==,false',
+			'mprov'			=> 'required_if:serumah,==,false',
+			'mkab'			=> 'required_if:serumah,==,false',
+			'mkec'			=> 'required_if:serumah,==,false',
+			'mkel'			=> 'required_if:serumah,==,false',
+			'mphone'		=> 'required',
+			'mktp'			=> 'required|size:16',
+			'msal'			=> 'required',
+			// 
+			'donaturname'		=> 'required_if:pembiayaan,==,false',
+			'donaturphone'	=> 'required_if:pembiayaan,==,false',
+			'donaturadd'		=> 'required_if:pembiayaan,==,false',
+			'dprov'					=> 'required_if:pembiayaan,==,false',
+			'dkab'					=> 'required_if:pembiayaan,==,false',
+			'dkec'					=> 'required_if:pembiayaan,==,false',
+			'dkel'					=> 'required_if:pembiayaan,==,false',
+			
+		], $this->errmsg4);
+		// 
+		if ($validator->fails()) {
+			return back()->withInput()->withErrors($validator);
+		}
+		// 
+		$id = Auth::id();
+		// delete old data
+		Regparent::where('registrant_id', $id)->delete();
+		// store data
+		$s = new Regparent();
+		$s->registrant_id = $id;
+		// ayah
+		$s->fname					= $request->fname;
+		$s->flive					= $request->flive == 'true' ? true : false;
+		$s->fadd					= $request->fadd;
+		$s->fprov					= $request->fprov;
+		$s->fkab					= $request->fkab;
+		$s->fkec					= $request->fkec;
+		$s->fkel					= $request->fkel;
+		$s->fphone				= $request->fphone;
+		$s->fwa						= $request->fwa;
+		$s->fktp					= $request->fktp;
+		$s->fedu					= $request->fedu;
+		$s->freli					= $request->freli;
+		$s->fmari					= $request->fmari == 'true' ? true : false;
+		$s->fwork					= $request->fwork;
+		$s->fsal					= $request->fsal;
+		$s->faddsal				= $request->faddsal;
+		// ibu
+		$s->mname					= $request->mname;
+		$s->mlive					= $request->mlive == 'true' ? true : false;
+		if($request->serumah == 'true'){
+			$s->madd					= $request->fadd;
+			$s->mprov					= $request->fprov;
+			$s->mkab					= $request->fkab;
+			$s->mkec					= $request->fkec;
+			$s->mkel					= $request->fkel;
+		} else {
+			$s->madd					= $request->madd;
+			$s->mprov					= $request->mprov;
+			$s->mkab					= $request->mkab;
+			$s->mkec					= $request->mkec;
+			$s->mkel					= $request->mkel;
+		}
+		$s->mphone				= $request->mphone;
+		$s->mwa						= $request->mwa;
+		$s->mktp					= $request->mktp;
+		$s->medu					= $request->medu;
+		$s->mreli					= $request->mreli;
+		$s->mwork					= $request->mwork;
+		$s->msal					= $request->msal;
+		$s->maddsal				= $request->maddsal;
+		// pembiaya
+		$s->pembiayaan		= $request->pembiayaan == 'true' ? true : false;
+		if($request->pembiayaan == 'false'){
+			$s->donaturname		= $request->donaturname;
+			$s->donaturrels		= $request->donaturrels;
+			$s->donaturphone	= $request->donaturphone;
+			$s->donaturadd		= $request->donaturadd;
+			$s->dprov					= $request->dprov;
+			$s->dkab					= $request->dkab;
+			$s->dkec					= $request->dkec;
+			$s->dkel					= $request->dkel;
+		}
+		// berkas
+		$s->berkasijz		= $request->berkasijz == 'true' ? true : false;
+		$s->berkasskhun	= $request->berkasskhun == 'true' ? true : false;
+		$s->berkasnisn	= $request->berkasnisn == 'true' ? true : false;
+		$s->berkaskk		= $request->berkaskk == 'true' ? true : false;
+		$s->berkasktp		= $request->berkasktp == 'true' ? true : false;
+		$s->berkasfoto	= $request->berkasfoto == 'true' ? true : false;
+		$s->berkasrapor	= $request->berkasrapor == 'true' ? true : false;
+		$s->berkasskbb	= $request->berkasskbb == 'true' ? true : false;
+		$s->berkaskes		= $request->berkaskes == 'true' ? true : false;
+		// 
+		$s->save();
+		// 
+		return back()->withToastSuccess('Data orang tua berhasil diubah.');
+		
+	}
+	
 }

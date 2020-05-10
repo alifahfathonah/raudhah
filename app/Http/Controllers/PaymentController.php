@@ -9,6 +9,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 use App\Payment;
 use App\Registrant;
+use Auth;
 
 class PaymentController extends Controller
 {
@@ -27,6 +28,9 @@ class PaymentController extends Controller
 	*/
 	public function index()
 	{
+		if(Auth::user()->role > 2){
+			return redirect()->route('admin.dashboard');
+		}
 		//
 		$payments = Payment::all()->sortByDesc('paydate');
 		
@@ -75,9 +79,9 @@ class PaymentController extends Controller
 		$p->paynominal = $nominaltostore;
 		$p->save();
 
-		$reg = Registrant::where('paynumber', $p->paynumber)->first();
+		$reg = Registrant::where('nova', $p->paynumber)->first();
 		if($reg){
-			Registrant::where('paynumber', $p->paynumber)->update(['isverified' => true]);
+			Registrant::where('nova', $p->paynumber)->update(['isverified' => true]);
 		}
 		
 		return back()->withToastSuccess('Data transfer berhasil disimpan.');

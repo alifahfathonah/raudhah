@@ -100,39 +100,41 @@
 			</div>
 			<!-- Card Body -->
 			<div class="card-body">
-				<table id="dataTable" class="table">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Tanggal</th>
-							<th>No. Virtual Account</th>
-							<th>Nominal Transfer</th>
-							@if(Auth::user()->role == 2)
-							<th>Aksi</th>
-							@endif
-						</tr>
-					</thead>
-					@php $no = 1 @endphp
-					<tbody>
-						@foreach ($payments as $payment)
-						<tr>
-							<td>{{$no++}}</td>
-							<td>{{date('d/m/Y', strtotime($payment->paydate))}}</td>
-							<td class="{{$payment->status ? 'text-success' : ''}}">{{$payment->paynumber}}</td>
-							<td class="text-right{{$payment->paynominal < $set->cost ? ' text-danger' : ''}}">{{$payment->paynominal}}</td>
-							@if(Auth::user()->role == 2)
-							<td class="d-flex justify-content-end">
-								<div class="btn-group" role="group" aria-label="Basic example">
-									<a href="#" class="btn btn-danger btn-sm paymenttodelete" data-toggle="modal" data-target="#paymentDelete" data-id="{{$payment->id}}" data-nama="{{$payment->paynumber}}">
-										<i class="fas fa-fw fa-trash"></i>
-									</a>
-								</div>
-							</td>
-							@endif
-						</tr>
-						@endforeach
-					</tbody>
-				</table>
+				<div class="table-responsive">
+					<table id="dataTable" class="table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Tanggal</th>
+								<th>No. Virtual Account</th>
+								<th>Nominal Transfer</th>
+								@if(Auth::user()->role == 2)
+								<th>Aksi</th>
+								@endif
+							</tr>
+						</thead>
+						@php $no = 1 @endphp
+						<tbody>
+							@foreach ($payments as $payment)
+							<tr>
+								<td>{{$no++}}</td>
+								<td>{{date('d/m/Y', strtotime($payment->paydate))}}</td>
+								<td class="{{$payment->status ? 'text-success' : ''}}">{{$payment->paynumber}}</td>
+								<td class="text-right{{$payment->paynominal < $set->cost ? ' text-danger' : ''}}">{{$payment->paynominal}}</td>
+								@if(Auth::user()->role == 2)
+								<td class="d-flex justify-content-end">
+									<div class="btn-group" role="group" aria-label="Basic example">
+										<a href="#" class="btn btn-danger btn-sm paymenttodelete" data-toggle="modal" data-target="#paymentDelete" data-id="{{$payment->id}}" data-nama="{{$payment->paynumber}}">
+											<i class="fas fa-fw fa-trash"></i>
+										</a>
+									</div>
+								</td>
+								@endif
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
