@@ -35,7 +35,7 @@ Fitur utama aplikasi website registrasi online **Raudhah** diantaranya adalah:
 ## Developer
 
 - **Khairi Ibnutama (https://github.com/Kaitama)**
-- **Zaimah Panjaitan (http://komputerkata.com)**
+- **Zaimah Panjaitan (https://github.com/Zaimah19)**
 
 ## Change Log
 
