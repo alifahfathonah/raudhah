@@ -663,6 +663,7 @@ class RegistrantController extends Controller
 		$id = Auth::id();
 		// delete old data
 		Regparent::where('registrant_id', $id)->delete();
+		
 		// store data
 		$s = new Regparent();
 		$s->registrant_id = $id;

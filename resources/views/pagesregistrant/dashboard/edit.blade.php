@@ -82,7 +82,7 @@
 				</div>
 				<div class="field required @error('birthdate') error @enderror">
 					<label>Tanggal Lahir</label>
-					<input type="text" name="birthdate" class="date-input" value="{{old('birthdate', $d->birthdate)}}">
+					<input type="text" name="birthdate" class="date-input" value="{{old('birthdate', date('d/m/Y', strtotime($d->birthdate)))}}">
 				</div>
 				<div class="field">
 					<label>Jenis Kelamin</label>
@@ -509,7 +509,7 @@
 					<div class="four wide field required">
 						<select name="flive" class="ui dropdown">
 							<option value="true"{{old('flive') == 'true' ? ' selected' : $d->regparent['flive'] == true ? ' selected' : ''}}>MASIH HIDUP</option>
-							<option value="false"{{old('flive') == 'false' ? ' selected' : $d->regparent['flive'] == true ? ' selected' : ''}}>SUDAH MENINGGAL</option>
+							<option value="false"{{old('flive') == 'false' ? ' selected' : $d->regparent['flive'] == false ? ' selected' : ''}}>SUDAH MENINGGAL</option>
 						</select>
 					</div>
 				</div>
