@@ -244,7 +244,7 @@
 			<tr>
 				<td class="leading">NAMA AYAH KANDUNG</td>
 				<td style="width: 1%">:</td>
-				<td>{{$d->regparent['flive'] == false ? '(ALM) ' : ''}}{{$d->regparent['fname']}}</td>
+				<td>{{$d->regparent['flive'] == false ? '(ALM.) ' : ''}}{{$d->regparent['fname']}}</td>
 			</tr>
 			<tr>
 				<td>ALAMAT DOMISILI</td>
@@ -304,7 +304,7 @@
 			<tr>
 				<td>NAMA IBU KANDUNG</td>
 				<td>:</td>
-				<td>{{$d->regparent['mlive'] == false ? '(ALM) ' : ''}}{{$d->regparent['mname']}}</td>
+				<td>{{$d->regparent['mlive'] == false ? '(ALMH.) ' : ''}}{{$d->regparent['mname']}}</td>
 			</tr>
 			<tr>
 				<td>ALAMAT DOMISILI</td>

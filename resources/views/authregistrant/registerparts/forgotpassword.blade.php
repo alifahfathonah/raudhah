@@ -37,7 +37,7 @@
 					<label>Nomor Induk Sekolah Nasional (NISN)</label>
 					<div class="ui left icon input">
 						<i class="credit card icon"></i>
-						<input type="text" name="nisn" value="{{old('nisn')}}" class="numeric-input">
+						<input type="text" name="nisn" value="{{old('nisn')}}" class="nisn-input">
 					</div>
 				</div>
 				{{-- no kk --}}
