@@ -12,31 +12,32 @@ Aplikasi **Raudhah** merupakan aplikasi berbasis web yang berfungsi sebagai medi
 
 ## Framework Digunakan
 
-- **Laravel 6.2 (https://laravel.com)**
-- **Semantic UI (https://semantic-ui.com)**
-- **Bootstrap 4 (https://getbootstrap.com)**
+-   **Laravel 6.2 (https://laravel.com)**
+-   **Semantic UI (https://semantic-ui.com)**
+-   **Bootstrap 4 (https://getbootstrap.com)**
 
 ## Fitur Utama
 
-Fitur utama aplikasi website registrasi online **Raudhah** diantaranya adalah: 
+Fitur utama aplikasi website registrasi online **Raudhah** diantaranya adalah:
 
-- **Registrasi calon santri baru**
-- **Dashboard calon santri (pendaftar)**
-- **Download kartu ujian (PDF generated) dan file materi ujian**
-- **Dashboard admin**
-- **Summary data**
-- **Menu data calon santri terdaftar**
-- **Menu konfirmasi pembayaran**
-- **Menu basis data pesantren**
-- **Menu pengaturan aplikasi**
-- **Import data dalam format Excel**
-- **Export data dalam format PDF**
+-   **Registrasi calon santri baru**
+-   **Dashboard calon santri (pendaftar)**
+-   **Download kartu ujian (PDF generated) dan file materi ujian**
+-   **Dashboard admin**
+-   **Summary data**
+-   **Menu data calon santri terdaftar**
+-   **Menu konfirmasi pembayaran**
+-   **Menu basis data pesantren**
+-   **Menu pengaturan aplikasi**
+-   **Import data dalam format Excel**
+-   **Export data dalam format PDF**
 
 ## Developer
 
-- **Khairi Ibnutama (https://github.com/Kaitama)**
-- **Zaimah Panjaitan (https://github.com/Zaimah19)**
+-   **Khairi Ibnutama (https://github.com/Kaitama)**
+-   **Zaimah Panjaitan (https://github.com/Zaimah19)**
 
 ## Change Log
 
-- (5/10/2020) Published
+-   (5/10/2020) Published
+-   (5/11/2020) Minor bug fixed
