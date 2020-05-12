@@ -35,6 +35,9 @@ TO DO:
 30. Upload file materi ke website (DONE)
 31. Set kartu ujian ke ukuran asli (DONE)
 32. Tambah array pekerjaan orang tua ['Ibu Rumah Tangga', 'Tidak Bekerja'] dan hapus 'Mengurus Rumah Tangga' dari array tsb. (DONE)
+33. Perbaiki logo di halaman pdf profile calon santri. (DONE)
+34. Sortir data pendaftar berdasarkan tingkat (SD/SMP). (DONE)
+35. Tampilkan pilihan pesantren dibawah TINGKAT pada halaman buat kartu ujian. (DONE)
 
 UPLOAD STEP:
 1. Import mysql structure

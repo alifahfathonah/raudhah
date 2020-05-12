@@ -46,7 +46,7 @@ class RegistController extends Controller
 			$regs = Registrant::orderBy('id', 'desc')->get();
 		}
 		
-		return view('pagesadmin.registrants.index', ['regs' => $regs, 'class' => $classes, 'dorms' => $dorms, 'tables' => $tables, 'bcs' => $bcs, 'bds' => $bds]);
+		return view('pagesadmin.registrants.index2', ['regs' => $regs, 'class' => $classes, 'dorms' => $dorms, 'tables' => $tables, 'bcs' => $bcs, 'bds' => $bds]);
 	}
 	
 	public function examcardset($id)
@@ -214,5 +214,37 @@ class RegistController extends Controller
 		return back()->withToastSuccess('Data calon santri berhasil dihapus.');
 	}
 	
+	/*
+	public function filter(Request $request)
+	{
+		// 
+		$a = $request->get('schlvl');
+		$b = $request->get('destination');
+		if($b == 1) $b = 'RAUDHAH 1'; else $b = 'RAUDHAH 2';
+		$c = $request->get('gender');
+		$d = $request->get('status');
+		if($d == 1) $d = '1'; else $d = '0';
+		// 
+		// $reg = Registrant::all();
+		// $regs = Registrant::where('destination', 'like', '%' . $b . '%')->where('gender', $c)->where('isverified', $d)->get();
+		$regs = Registrant::when($b, function($q) use ($b){
+			$q->where('destination', 'like', '%' .$b. '%');
+		})->when($c, function($q) use ($c){
+			$q->where('gender', $c);
+		})->when($d, function($q) use ($d){
+			$q->where('isverified', '=', $d);
+		})->when($a, function($q) use ($a){
+			$q->regschool()->where('schlvl', $a);
+		})->get();
+		// 
+		$bcs = Building::where('category', 1)->get();
+		$bds = Building::where('category', 2)->get();
+		$classes = Classroom::all();
+		$dorms = Room::all();
+		$tables = Foodtable::all();
+		// 
+		return view('pagesadmin.registrants.index', ['regs' => $regs, 'class' => $classes, 'dorms' => $dorms, 'tables' => $tables, 'bcs' => $bcs, 'bds' => $bds]);
+	}
+	*/
 	
 }

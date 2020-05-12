@@ -52,6 +52,14 @@
 							: {{$reg->regschool['schlvl']}}
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-md-2 col-sm-12">
+							Pilihan Pesantren
+						</div>
+						<div class="col">
+							: {{$reg->destination}}
+						</div>
+					</div>
 					<div class="dropdown-divider"></div>
 					<div class="row">
 						{{-- numchar --}}

@@ -39,5 +39,6 @@ Fitur utama aplikasi website registrasi online **Raudhah** diantaranya adalah:
 
 ## Change Log
 
--   (5/10/2020) Published
--   (5/11/2020) Minor bug fixed
+-   (5/12/2020) Sortir data santri berdasarkan field-field unik; Ubah logo;
+-   (5/11/2020) Perbaikan bug minor;
+-   (5/10/2020) Published;

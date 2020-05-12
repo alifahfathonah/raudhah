@@ -9,7 +9,7 @@
 		.main-table{
 			width: 100%
 		}
-		.kop { line-height: 1.2 }
+		.kop { line-height: 1.2; font-size: 130% }
 		.parent-div { height: 2cm }
 		.parent-div:after { content: "";display: table;clear: both; }
 		.col { float: left; }
@@ -30,7 +30,7 @@
 	
 	<div class="parent-div">
 		<div class="col col-left">
-			<img src="{{public_path('img/app/' . $set->logo)}}" alt="" style="width: 2cm">
+			<img src="{{public_path('img/app/logo-2.png')}}" alt="" style="width: 2.5cm">
 		</div>
 		<div class="col col-right">
 			<h4 class="kop">FORMULIR DATA PRIBADI CALON SANTRI/SANTRIWATI 

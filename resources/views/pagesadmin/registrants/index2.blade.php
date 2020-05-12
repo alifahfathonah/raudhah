@@ -48,7 +48,7 @@
 						<tr>
 							<td>
 								<a href="#" class="btn btn-icon-split btn-sm btn-secondary">
-									<span class="icon"><i class="fas fa-clipboard"></i></span>
+									<span class="icon"><i class="fas fa-edit"></i></span>
 									<span class="text">X000</span>
 								</a>
 							</td>
@@ -162,11 +162,12 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>NIK</th>
-								<th>Nama</th>
+								<th>VA/NIK</th>
+								<th>Calon Santri</th>
 								<th>JK</th>
-								<th>Asal Sekolah</th>
 								<th>Orang Tua</th>
+								<th>Tingkat</th>
+								<th>Tujuan</th>
 								<th>Opsi</th>
 							</tr>
 						</thead>
@@ -177,6 +178,10 @@
 								<td>{{$no++}}</td>
 								{{--  --}}
 								<td>
+									<small class="font-weight-bold">Virtual Account</small><br>
+									{{$r->nova}}
+									<hr>
+									<small class="font-weight-bold">NIK</small>
 									{{$r->username}}<br>
 									@if($r->isverified == true)
 									<span class="badge badge-success badge-pill">Verified</span>
@@ -193,47 +198,32 @@
 									<span class="badge badge-primary badge-pill">Complete</span>
 									@endif
 									@endif
-									<hr>
-									@if($r->examcard['numchar'])
-									
-									<a href="{{route('admin.examcard.edit', $r->id)}}" class="btn btn-icon-split btn-sm btn-secondary">
-										<span class="icon"><i class="fas fa-clipboard"></i></span>
-										<span class="text">{{$r->examcard['numchar']}}</span>
-									</a>
-									<a href="{{route('admin.examcard.view', $r->id)}}" target="_blank" class="btn btn-sm btn-dark">
-										<i class="fas fa-print"></i>
-									</a>
-									@endif
-									
 								</td>
 								{{--  --}}
 								<td>
+									<small class="font-weight-bold">Nama Lengkap</small><br>
 									{{$r->name}}<br>
 									<small class="text-muted sub-title font-weight-light">
 										{{$r->birthplace}}, {{date('d/m/Y', strtotime($r->birthdate))}}
 									</small>
 									<hr>
-									<small>Nomor Virtual Account: </small><br>
-									<strong>{{$r->nova}}</strong>
-								</td>
-								<td class="font-weight-bold">{{$r->gender == 1 ? 'L' : 'P'}}</td>
-								{{--  --}}
-								<td>
+									<small class="font-weight-bold">Asal Sekolah</small><br>
 									{{$r->regschool['schname']}}<br>
 									<small class="text-muted sub-title font-weight-light">{{$r->regschool['schkab']}} - {{$r->regschool['schprov']}}</small>
-									<hr>
-									<small>Tingkat: </small><br>
-									<strong>{{$r->regschool['schlvl']}}</strong><br>
-									<small>Pilihan Pesantren: </small><br>
-									<strong>@if(strstr($r->destination, 'LUMUT')) RAUDHAH-2 @else RAUDHAH-1 @endif</strong>
+								</td>
+								{{--  --}}
+								<td class="font-weight-bold">
+									{{$r->gender == 1 ? 'L' : 'P'}}
 								</td>
 								{{--  --}}
 								<td>
+									<small class="font-weight-bold">Data Ayah</small><br>
 									{{$r->regparent['fname']}}<br>
 									<small class="text-muted sub-title font-weight-light">
 										<i class="fas fa-phone-alt"></i>	{{$r->regparent['fphone']}}
 									</small>
 									<hr>
+									<small class="font-weight-bold">Data Ibu</small><br>
 									{{$r->regparent['mname']}}<br>
 									<small class="text-muted sub-title font-weight-light">
 										<i class="fas fa-phone-alt"></i>	{{$r->regparent['mphone']}} 
@@ -241,16 +231,37 @@
 								</td>
 								{{--  --}}
 								<td>
+									{{$r->regschool['schlvl']}}
+								</td>
+								{{--  --}}
+								<td>@if(strstr($r->destination, 'LUMUT')) RAUDHAH-2 @else RAUDHAH-1 @endif</td>
+								{{--  --}}
+								<td>
+									@if($r->examcard['numchar'])
 									<div class="btn-group" role="group">
-										<a href="{{route('admin.registrants.profile', $r->id)}}" target="_blank" class="btn btn-success btn-sm">
+										<a href="{{route('admin.examcard.edit', $r->id)}}" class="btn btn-icon-split btn-sm btn-secondary" data-toggle="tooltip" data-placement="left" title="Ubah kartu ujian">
+											<span class="icon"><i class="fas fa-edit"></i></span>
+											<span class="text">{{$r->examcard['numchar']}}</span>
+										</a>
+										<a href="{{route('admin.examcard.view', $r->id)}}" target="_blank" class="btn btn-sm btn-dark" data-toggle="tooltip" data-placement="left" title="Print kartu ujian">
+											<i class="fas fa-print"></i>
+										</a>
+									</div>
+									<hr>
+									@endif
+									<div class="btn-group" role="group">
+										<a href="{{route('admin.registrants.profile', $r->id)}}" target="_blank" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="Profil lengkap calon santri">
 											<i class="fas fa-user"></i>
 										</a>
 										@if($r->isverified == true && $r->examcard == null)
-										<a href="{{route('admin.examcard.set', $r->id)}}" class="btn btn-primary btn-sm">
+										<a href="{{route('admin.examcard.set', $r->id)}}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="left" title="Buat kartu ujian">
 											<i class="fas fa-clipboard-list"></i>
 										</a>
 										@endif
-										@if(Auth::user()->role == 2)
+									</div>
+									@if(Auth::user()->role == 2)
+									<hr>
+									<div class="btn-group" role="group">
 										@if($r->isverified == false)
 										<a href="#" class="btn btn-warning btn-sm" id="setManualVerification" data-toggle="modal" data-target="#manualVerification" data-id="{{$r->id}}">
 											<i class="fas fa-check"></i>
@@ -259,8 +270,8 @@
 										<a href="#" class="btn btn-danger btn-sm" id="deleteRegistrant" data-toggle="modal" data-target="#modalDeleteRegistrant" data-id="{{$r->id}}" data-nik="{{$r->username}}" data-nama="{{$r->name}}">
 											<i class="fas fa-trash"></i>
 										</a>
-										@endif
 									</div>
+									@endif
 								</td>
 							</tr>
 							@endforeach
@@ -376,5 +387,8 @@ $(document).on("click", "#deleteRegistrant", function(){
 	$(".data-nik").html(nik);
 	$(".data-nama").html(nama);
 });
+$(function () {
+	$('[data-toggle="tooltip"]').tooltip()
+})
 @endsection
 
