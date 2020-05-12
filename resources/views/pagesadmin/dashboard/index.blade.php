@@ -36,7 +36,7 @@
 	@php
 	$danas = array(
 	array('info', 'money-bill-wave', 'Saldo', 'Rp. ' . number_format($set['cost'] * $verified->count(),0,",","."), 'Dana Terkumpul'),
-	array('danger', 'user-cog', 'Waiting', $submitted->count(), 'Menunggu Verifikasi Pembayaran'),
+	array('danger', 'user-cog', 'Waiting', $verified->count() - $examcards->count(), 'Menunggu Kartu Ujian'),
 	);
 	@endphp
 	@foreach ($danas as $dana)

@@ -9,6 +9,7 @@ use App\Classroom;
 use App\Room;
 use App\Foodtable;
 use App\Registrant;
+use App\Examcard;
 
 class DashboardadminController extends Controller
 {
@@ -40,6 +41,7 @@ class DashboardadminController extends Controller
 		$ver = Registrant::where('isverified', true)->get();
 		$pen = Registrant::where('isverified', false)->where('paysubmitted', false)->get();
 		$sub = Registrant::where('paysubmitted', true)->where('isverified', false)->get();
+		$crs = Examcard::all();
 
 		return view('pagesadmin.dashboard.index', [
 			'users'				=> $u,
@@ -51,6 +53,7 @@ class DashboardadminController extends Controller
 			'verified'		=> $ver,
 			'pending'			=> $pen,
 			'submitted'		=> $sub,
+			'examcards'		=> $crs,
 		]);
 	}
 	
