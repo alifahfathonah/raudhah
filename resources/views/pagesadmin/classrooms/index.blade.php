@@ -85,9 +85,11 @@
 					@foreach ($buildings as $building)
 					<li class="list-group-item list-group-item-info d-flex justify-content-between align-items-center">
 						<span class="font-weight-bold">{{$building->name}}</span>
+						@if(Auth::user()->role == 2)
 						<button type="button" class="btn btn-danger btn-circle btn-sm" data-toggle="modal" data-target="#deleteBuilding" data-id="{{$building->id}}" data-name="{{$building->name}}">
 							<i class="fas fa-trash"></i>
 						</button>
+						@endif
 					</li>
 					@if ($building->classroom->count() == 0)
 					<li class="list-group-item"><small class="ml-4">Tidak ada data ruangan pada gedung {{$building->name}}.</small></li>
@@ -97,14 +99,18 @@
 						<div class="ml-4">
 							<span class="font-weight-bold">{{$classroom->name}}</span>, kapasitas {{$classroom->capacity}} orang.
 						</div>
+
 						<div class="btn-group btn-group-sm" role="group">
 							<button type="button" class="btn btn-success" onclick="editclassroom({{$classroom->id}}, {{$classroom->building_id}}, '{{$classroom->name}}', {{$classroom->capacity}})">
 								<i class="fas fa-edit"></i>
 							</button>
+							@if(Auth::user()->role == 2)
 							<a href="{{route('admin.classrooms.destroy', $classroom->id)}}" class="btn btn-danger">
 								<i class="fas fa-trash"></i>
 							</a>
+							@endif
 						</div>
+
 					</li>
 					@endforeach
 					@endif
@@ -117,6 +123,7 @@
 	{{-- /row --}}
 </div>
 
+@if(Auth::user()->role == 2)
 {{-- modal deleteBuilding --}}
 <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="deleteBuildingLabel" id="deleteBuilding" >
 	<div class="modal-dialog" role="document">
@@ -151,7 +158,7 @@
 		</div>
 	</div>
 </div>
-
+@endif
 
 
 @endsection

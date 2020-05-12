@@ -68,9 +68,11 @@
 							<button type="button" class="btn btn-success" onclick="edittable({{$table->id}}, '{{$table->name}}', {{$table->capacity}})">
 								<i class="fas fa-edit"></i>
 							</button>
+							@if(Auth::user()->role == 2)
 							<a href="{{route('admin.tables.destroy', $table->id)}}" class="btn btn-danger">
 								<i class="fas fa-trash"></i>
 							</a>
+							@endif
 						</div>
 					</li>
 					@endforeach
