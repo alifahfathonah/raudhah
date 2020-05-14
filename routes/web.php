@@ -71,6 +71,11 @@ Route::prefix('admin')->group(function () {
 		Route::post('registrant/manualverification', 'RegistController@manualverification')->name('admin.registrants.manual');
 		Route::get('registrant/profile/{id}', 'RegistController@registrantprofile')->name('admin.registrants.profile');
 		Route::post('registrant/destroy', 'RegistController@destroy')->name('admin.registrants.destroy');
+		Route::get('registrant/export/all', 'ExportexcelController@exportAll')->name('admin.registrants.export.all');
+		Route::get('registrant/export/pending', 'ExportexcelController@exportPending')->name('admin.registrants.export.pending');
+		Route::get('registrant/export/verified', 'ExportexcelController@exportVerified')->name('admin.registrants.export.verified');
+		Route::get('registrant/export/rh1', 'ExportexcelController@exportRaudhahOne')->name('admin.registrants.export.rh1');
+		Route::get('registrant/export/rh2', 'ExportexcelController@exportRaudhahTwo')->name('admin.registrants.export.rh2');
 		
 		// examcards
 		Route::get('registrant/examcard/set/{id}', 'RegistController@examcardset')->name('admin.examcard.set');

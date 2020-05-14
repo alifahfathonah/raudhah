@@ -66,6 +66,12 @@ class PaymentController extends Controller
 			return back()->withToastError($validator->messages()->all()[0])->withInput()->withErrors($validator);
 		}
 		// 
+		$reg = Registrant::where('nova', $request->paynumber)->where('isverified', false)->first();
+		if(!$reg){
+			return back()->withToastError('Santri dgn no. VA tsb tidak ditemukan/sudah terverifikasi.');
+		}
+		Registrant::where('nova', $request->paynumber)->update(['isverified' => true]);
+		// 
 		$date = $request->paydate;
 		$datearray = explode('/', $date);
 		$datetostore = $datearray[2] . '-' . $datearray[1] . '-' . $datearray[0];
@@ -79,10 +85,6 @@ class PaymentController extends Controller
 		$p->paynominal = $nominaltostore;
 		$p->save();
 
-		$reg = Registrant::where('nova', $p->paynumber)->first();
-		if($reg){
-			Registrant::where('nova', $p->paynumber)->update(['isverified' => true]);
-		}
 		
 		return back()->withToastSuccess('Data transfer berhasil disimpan.');
 		
@@ -103,7 +105,7 @@ class PaymentController extends Controller
 			if ($validator->fails()) {
 				return back()->withToastError($validator->messages()->all()[0]);
 			}
-			Excel::import(new PaymentsImport, $request->file('fileexcel'));
+			$xcl = Excel::import(new PaymentsImport, $request->file('fileexcel'));
 			return back()->withToastSuccess('Data transfer berhasil diupload.');
 		}
 	}
@@ -152,7 +154,11 @@ class PaymentController extends Controller
 	{
 		//
 		$id = $request->idtodelete;
+		// Payment::find($id)->delete();
+		$payment = Payment::find($id);
+		$nova = $payment->paynumber;
+		Registrant::where('nova', $nova)->update(['isverified' => false]);
 		Payment::find($id)->delete();
-		return back()->withToastSuccess('Data transfer berhasil dihapus.');
+		return back()->withToastSuccess('Data pembayaran dihapus, pendaftar berstatus pending.');
 	}
 }

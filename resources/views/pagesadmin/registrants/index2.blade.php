@@ -145,12 +145,12 @@
 							<span class="text">Export Excel</span>
 						</button>
 						<div class="dropdown-menu" aria-labelledby="exportExcel">
-							<a class="dropdown-item" href="#">Seluruh Data Pendaftar</a>
-							<a class="dropdown-item" href="#">Data Pendaftar Terverifikasi</a>
-							<a class="dropdown-item" href="#">Data Pendaftar Pending</a>
+							<a class="dropdown-item" href="{{route('admin.registrants.export.all')}}">Seluruh Data Pendaftar</a>
+							<a class="dropdown-item" href="{{route('admin.registrants.export.verified')}}">Data Pendaftar Terverifikasi</a>
+							<a class="dropdown-item" href="{{route('admin.registrants.export.pending')}}">Data Pendaftar Pending</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Data Pendaftar RAUDHAH-1</a>
-							<a class="dropdown-item" href="#">Data Pendaftar RAUDHAH-2</a>
+							<a class="dropdown-item" href="{{route('admin.registrants.export.rh1')}}">Data Pendaftar RAUDHAH-1</a>
+							<a class="dropdown-item" href="{{route('admin.registrants.export.rh2')}}">Data Pendaftar RAUDHAH-2</a>
 						</div>
 					</div>
 				</div>

@@ -147,9 +147,6 @@ class RegistController extends Controller
 		// 
 		$validator = Validator::make($request->all(), [
 			'numchar'		=> 'required|unique:examcards,numchar,'.$ex->id,
-			'classroom'	=> 'required',
-			'dormroom'	=> 'required',
-			'foodtable'	=> 'required',
 		], $this->errmsg);
 		// 
 		if ($validator->fails()) {
@@ -159,30 +156,45 @@ class RegistController extends Controller
 			->withErrors($validator);
 		}
 		// 
+		if($request->dormroom){
+			Room::where('id', $ex->room_id)->decrement('vnow');
+			Room::where('id', $request->dormroom)->increment('vnow');
+			$rtidur = $request->dormroom;
+		} else {
+			$rtidur = $ex->room_id;
+		}
+		if($request->classroom){
+			Classroom::where('id', $ex->classroom_id)->decrement('vnow'); 
+			Classroom::where('id', $request->classroom)->increment('vnow');
+			$rkelas = $request->classroom;
+		} else {
+			$rkelas = $ex->classroom_id;
+		}
+		if($request->foodtable){
+			Foodtable::where('id', $ex->foodtable_id)->decrement('vnow'); 
+			Foodtable::where('id', $request->foodtable)->increment('vnow');
+			$mmakan = $request->foodtable;
+		} else {
+			$mmakan = $ex->foodtable_id;
+		}
 		
-		// $f = Foodtable::where('id', $fid)->first()->vnow;
 		
 		// update data
 		Examcard::where('registrant_id', $id)->update([
 			'numchar'				=> $request->numchar,
-			'room_id'				=> $request->dormroom,
-			'classroom_id'	=> $request->classroom,
-			'foodtable_id'	=> $request->foodtable,
+			'room_id'				=> $rtidur,
+			'classroom_id'	=> $rkelas,
+			'foodtable_id'	=> $mmakan,
 			]
 		);
 		
-			Room::where('id', $ex->room_id)->decrement('vnow');
-			Room::where('id', $request->dormroom)->increment('vnow');
-			Classroom::where('id', $ex->classroom_id)->decrement('vnow'); 
-			Classroom::where('id', $request->classroom)->increment('vnow');
-			Foodtable::where('id', $ex->foodtable_id)->decrement('vnow'); 
-			Foodtable::where('id', $request->foodtable)->increment('vnow');
+		
 		
 		// update vnow data baru
 		return redirect()->route('admin.registrants', 'verified')->withToastSuccess('Kartu Ujian berhasil diubah');
 		
 	}
-
+	
 	public function examcardview($id)
 	{
 		$data = Registrant::find($id);
@@ -191,7 +203,7 @@ class RegistController extends Controller
 		$pdf = PDF::loadview('pagesregistrant.dashboard.examcard',['data' => $data, 'card' => $card]);
 		return $pdf->stream($card->numchar . '.pdf');
 	}
-
+	
 	public function registrantprofile($id)
 	{
 		$data = Registrant::find($id);
